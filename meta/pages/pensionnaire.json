@@ -1,0 +1,217 @@
+{
+  "components": [
+    {
+      "type": "content",
+      "container": "main",
+      "components": [
+        {
+          "type": "heading",
+          "name": "pageTitle",
+          "size": "H1",
+          "text": "Pensionnaire"
+        },
+        {
+          "type": "row",
+          "components": [
+            {
+              "type": "col",
+              "class": "col-md-12",
+              "components": [
+                {
+                  "name": "grid0",
+                  "allowDelete": true,
+                  "confirmDelete": true,
+                  "allowAdd": true,
+                  "allowFiltering": true,
+                  "allowMultiSorting": false,
+                  "allowPaging": true,
+                  "allowSorting": true,
+                  "count": "${getPensionnairesCount}",
+                  "data": "${getPensionnairesResult}",
+                  "events": {
+                    "loadData": [
+                      {
+                        "name": "PensionnairesDB.getPensionnaires",
+                        "parameters": [
+                          {
+                            "name": "$top",
+                            "value": "event.top"
+                          },
+                          {
+                            "name": "$skip",
+                            "value": "event.skip"
+                          },
+                          {
+                            "name": "$count",
+                            "value": "event.top != null && event.skip != null"
+                          },
+                          {
+                            "name": "$filter",
+                            "value": "${event.filter}"
+                          },
+                          {
+                            "name": "$orderby",
+                            "value": "${event.orderby}"
+                          }
+                        ],
+                        "then": [
+                          {
+                            "name": "getPensionnairesResult",
+                            "type": "set",
+                            "value": "${result.value}"
+                          },
+                          {
+                            "name": "getPensionnairesCount",
+                            "type": "set",
+                            "value": "event.top != null && event.skip != null ? result['@odata.count'] : ${result.value.length}"
+                          }
+                        ],
+                        "type": "invoke",
+                        "error": [
+                          {
+                            "detail": "Unable to load Pensionnaires",
+                            "severity": "error",
+                            "summary": "Error",
+                            "type": "notify"
+                          }
+                        ]
+                      }
+                    ],
+                    "delete": [
+                      {
+                        "error": [
+                          {
+                            "detail": "Unable to delete Pensionnaire",
+                            "severity": "error",
+                            "summary": "Error",
+                            "type": "notify"
+                          }
+                        ],
+                        "name": "PensionnairesDB.deletePensionnaire",
+                        "parameters": [
+                          {
+                            "name": "id",
+                            "value": "${event.id}"
+                          }
+                        ],
+                        "then": [
+                          {
+                            "detail": "Pensionnaire deleted!",
+                            "severity": "success",
+                            "summary": "Success",
+                            "type": "notify"
+                          }
+                        ],
+                        "type": "invoke"
+                      }
+                    ],
+                    "add": [
+                      {
+                        "path": "add-pensionnaire",
+                        "type": "popup"
+                      }
+                    ],
+                    "rowSelect": [
+                      {
+                        "parameters": [
+                          {
+                            "name": "id",
+                            "value": "${event.id}"
+                          }
+                        ],
+                        "path": "edit-pensionnaire",
+                        "type": "popup"
+                      }
+                    ]
+                  },
+                  "title": "",
+                  "columns": [
+                    {
+                      "property": "id",
+                      "title": "Id",
+                      "type": "integer"
+                    },
+                    {
+                      "property": "nom",
+                      "title": "Nom",
+                      "type": "string"
+                    },
+                    {
+                      "property": "prenom",
+                      "title": "Prenom",
+                      "type": "string"
+                    },
+                    {
+                      "property": "matricule",
+                      "title": "Matricule",
+                      "type": "string"
+                    },
+                    {
+                      "property": "numero_identite",
+                      "title": "Numero Identite",
+                      "type": "string"
+                    },
+                    {
+                      "property": "type_identite",
+                      "title": "Type Identite",
+                      "type": "integer"
+                    },
+                    {
+                      "property": "date_naissance",
+                      "formatString": "medium",
+                      "title": "Date Naissance",
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    {
+                      "property": "date_entree",
+                      "formatString": "medium",
+                      "title": "Date Entree",
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    {
+                      "property": "date_sortie",
+                      "formatString": "medium",
+                      "title": "Date Sortie",
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  ],
+                  "type": "grid",
+                  "confirmDeleteText": "Are you sure you want to delete this record?",
+                  "confirmDeleteTitle": "Confirmation",
+                  "confirmDeleteOkText": "Ok",
+                  "confirmDeleteCancelText": "Cancel",
+                  "emptyText": "No records to display.",
+                  "addText": "Add",
+                  "clearFilterText": "Clear",
+                  "applyFilterText": "Apply",
+                  "equalsText": "Equals",
+                  "notEqualsText": "Not equals",
+                  "lessThanText": "Less than",
+                  "lessThanOrEqualsText": "Less than or equals",
+                  "greaterThanText": "Greater than",
+                  "greaterThanOrEqualsText": "Greater than or equals",
+                  "endsWithText": "Ends with",
+                  "containsText": "Contains",
+                  "startsWithText": "Starts with"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": {
+    "load": [
+      {
+        "type": "execute",
+        "code": "this.grid0.load();"
+      }
+    ]
+  },
+  "name": "Pensionnaire",
+  "layout": "Main"
+}

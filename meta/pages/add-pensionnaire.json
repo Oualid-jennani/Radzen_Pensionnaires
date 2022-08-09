@@ -1,0 +1,144 @@
+{
+  "components": [
+    {
+      "type": "content",
+      "container": "main",
+      "components": [
+        {
+          "type": "row",
+          "components": [
+            {
+              "type": "col",
+              "class": "col-md-12",
+              "components": [
+                {
+                  "data": "",
+                  "events": {
+                    "cancel": [
+                      {
+                        "type": "back"
+                      }
+                    ],
+                    "submit": [
+                      {
+                        "error": [
+                          {
+                            "detail": "Unable to create new Pensionnaire!",
+                            "severity": "error",
+                            "summary": "Error",
+                            "type": "notify"
+                          }
+                        ],
+                        "name": "PensionnairesDB.createPensionnaire",
+                        "parameters": [
+                          {
+                            "name": "Pensionnaire",
+                            "value": "${event}"
+                          }
+                        ],
+                        "then": [
+                          {
+                            "type": "back"
+                          }
+                        ],
+                        "type": "invoke"
+                      }
+                    ]
+                  },
+                  "fields": [
+                    {
+                      "property": "nom",
+                      "required": false,
+                      "title": "Nom",
+                      "type": "string",
+                      "maxLength": 50,
+                      "requiredText": "is required"
+                    },
+                    {
+                      "property": "prenom",
+                      "required": false,
+                      "title": "Prenom",
+                      "type": "string",
+                      "maxLength": 50,
+                      "requiredText": "is required"
+                    },
+                    {
+                      "property": "matricule",
+                      "required": false,
+                      "title": "Matricule",
+                      "type": "string",
+                      "maxLength": 50,
+                      "requiredText": "is required"
+                    },
+                    {
+                      "property": "numero_identite",
+                      "required": false,
+                      "title": "Numero Identite",
+                      "type": "string",
+                      "maxLength": 30,
+                      "requiredText": "is required"
+                    },
+                    {
+                      "data": "${getReferentielsResult}",
+                      "property": "type_identite",
+                      "required": false,
+                      "textProperty": "cat",
+                      "title": "Referentiel",
+                      "type": "lookup",
+                      "valueProperty": "id",
+                      "placeholder": "Choose Referentiel",
+                      "requiredText": "is required",
+                      "multipleItemsSelectedText": "{0} items selected",
+                      "emptyFilterText": "No results found"
+                    },
+                    {
+                      "property": "date_naissance",
+                      "required": false,
+                      "title": "Date Naissance",
+                      "type": "date",
+                      "requiredText": "is required"
+                    },
+                    {
+                      "property": "date_entree",
+                      "required": false,
+                      "title": "Date Entree",
+                      "type": "date",
+                      "requiredText": "is required"
+                    },
+                    {
+                      "property": "date_sortie",
+                      "required": false,
+                      "title": "Date Sortie",
+                      "type": "date",
+                      "requiredText": "is required"
+                    }
+                  ],
+                  "name": "form0",
+                  "type": "form"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": {
+    "load": [
+      {
+        "name": "PensionnairesDB.getReferentiels",
+        "parameters": [],
+        "then": [
+          {
+            "name": "getReferentielsResult",
+            "type": "set",
+            "value": "${result.value}"
+          }
+        ],
+        "type": "invoke"
+      }
+    ]
+  },
+  "name": "Add Pensionnaire",
+  "layout": "Main"
+}

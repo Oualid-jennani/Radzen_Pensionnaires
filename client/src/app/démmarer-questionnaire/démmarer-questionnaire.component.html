@@ -1,0 +1,10 @@
+<rz-content #content1 container="main">
+  <rz-heading #pageTitle size="H1" text="Démmarer Questionnaire">
+  </rz-heading>
+  <rz-form #form0 [columns]="3" submitText="Démmarer" (submit)="form0Submit($event)">
+    <rz-lookup-form-field [data]="getPensionnairesResult" emptyFilterText="No results found" multipleItemsSelectedText="{0} items selected" placeholder="Pensionnaire" requiredText="is required" textProperty="matricule" valueProperty="id" type="lookup">
+    </rz-lookup-form-field>
+    <rz-lookup-form-field [data]="getQuestionnairesResult" emptyFilterText="No results found" multipleItemsSelectedText="{0} items selected" placeholder="questionnare" requiredText="is required" textProperty="libelle" valueProperty="id" type="lookup">
+    </rz-lookup-form-field>
+  </rz-form>
+</rz-content>

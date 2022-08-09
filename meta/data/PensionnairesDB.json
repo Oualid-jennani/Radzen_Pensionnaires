@@ -1,0 +1,1166 @@
+{
+  "info": {
+    "title": "PensionnairesDB",
+    "x-type": "odata",
+    "x-connector": "mssql",
+    "x-connector-version": 15,
+    "x-concurrency": true,
+    "x-cascade-delete": false,
+    "x-infer-aspnet": true,
+    "x-infer-tables": true,
+    "x-infer-relations": true,
+    "x-infer-views": true,
+    "x-infer-sps": true
+  },
+  "definitions": {
+    "Pensionnaire": {
+      "x-table": "dbo.pensionnaire",
+      "resource": "Pensionnaires",
+      "required": [],
+      "properties": {
+        "id": {
+          "x-key": true,
+          "x-identity": true,
+          "x-nullable": false,
+          "x-precision": 10,
+          "type": "integer",
+          "x-navigation": [
+            {
+              "inversePropertyName": "Pensionnaire1",
+              "name": "Reponses",
+              "type": "Reponse"
+            }
+          ]
+        },
+        "nom": {
+          "type": "string",
+          "length": 50
+        },
+        "prenom": {
+          "type": "string",
+          "length": 50
+        },
+        "matricule": {
+          "type": "string",
+          "length": 50
+        },
+        "numero_identite": {
+          "type": "string",
+          "length": 30
+        },
+        "Referentiel": {
+          "type": "object",
+          "$ref": "#/definitions/Referentiel"
+        },
+        "type_identite": {
+          "x-precision": 10,
+          "type": "integer",
+          "x-foreignKey": {
+            "parentTable": "referentiel",
+            "parentEntityType": "Referentiel",
+            "type": "Referentiel",
+            "principalKey": "id",
+            "name": "Referentiel",
+            "textProperty": "cat",
+            "navigationProperty": "Pensionnaires"
+          }
+        },
+        "date_naissance": {
+          "type": "string",
+          "format": "date-time",
+          "x-datetime": "date"
+        },
+        "date_entree": {
+          "type": "string",
+          "format": "date-time",
+          "x-datetime": "date"
+        },
+        "date_sortie": {
+          "type": "string",
+          "format": "date-time",
+          "x-datetime": "date"
+        },
+        "Reponses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Reponse"
+          }
+        }
+      }
+    },
+    "Questionnaire": {
+      "x-table": "dbo.questionnaire",
+      "resource": "Questionnaires",
+      "required": [],
+      "properties": {
+        "id": {
+          "x-key": true,
+          "x-identity": true,
+          "x-nullable": false,
+          "x-precision": 10,
+          "type": "integer",
+          "x-navigation": [
+            {
+              "inversePropertyName": "Questionnaire",
+              "name": "Reponses",
+              "type": "Reponse"
+            }
+          ]
+        },
+        "code": {
+          "type": "string",
+          "length": 30
+        },
+        "libelle": {
+          "type": "string",
+          "length": 50
+        },
+        "description": {
+          "type": "string",
+          "length": 200
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "date_creation": {
+          "type": "string",
+          "format": "date-time",
+          "x-datetime": "datetime"
+        },
+        "json": {
+          "type": "string"
+        },
+        "Reponses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Reponse"
+          }
+        }
+      }
+    },
+    "Referentiel": {
+      "x-table": "dbo.referentiel",
+      "resource": "Referentiels",
+      "required": [],
+      "properties": {
+        "id": {
+          "x-key": true,
+          "x-identity": true,
+          "x-nullable": false,
+          "x-precision": 10,
+          "type": "integer",
+          "x-navigation": [
+            {
+              "inversePropertyName": "Referentiel",
+              "name": "Pensionnaires",
+              "type": "Pensionnaire"
+            }
+          ]
+        },
+        "cat": {
+          "type": "string",
+          "length": 50
+        },
+        "code": {
+          "type": "string",
+          "length": 20
+        },
+        "libelle_fr": {
+          "type": "string",
+          "length": 100
+        },
+        "libelle_ar": {
+          "type": "string",
+          "length": 100
+        },
+        "Pensionnaires": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Pensionnaire"
+          }
+        }
+      }
+    },
+    "Reponse": {
+      "x-table": "dbo.reponse",
+      "resource": "Reponses",
+      "required": [],
+      "properties": {
+        "id": {
+          "x-key": true,
+          "x-identity": true,
+          "x-nullable": false,
+          "x-precision": 10,
+          "type": "integer"
+        },
+        "date_debut": {
+          "type": "string",
+          "format": "date-time",
+          "x-datetime": "datetime"
+        },
+        "date_fin": {
+          "type": "string",
+          "format": "date-time",
+          "x-datetime": "datetime"
+        },
+        "Questionnaire": {
+          "type": "object",
+          "$ref": "#/definitions/Questionnaire"
+        },
+        "questionnare": {
+          "x-precision": 10,
+          "type": "integer",
+          "x-foreignKey": {
+            "parentTable": "questionnaire",
+            "parentEntityType": "Questionnaire",
+            "type": "Questionnaire",
+            "principalKey": "id",
+            "name": "Questionnaire",
+            "textProperty": "code",
+            "navigationProperty": "Reponses"
+          }
+        },
+        "Pensionnaire1": {
+          "type": "object",
+          "$ref": "#/definitions/Pensionnaire"
+        },
+        "pensionnaire": {
+          "x-precision": 10,
+          "type": "integer",
+          "x-foreignKey": {
+            "parentTable": "pensionnaire",
+            "parentEntityType": "Pensionnaire",
+            "type": "Pensionnaire",
+            "principalKey": "id",
+            "name": "Pensionnaire1",
+            "textProperty": "nom",
+            "navigationProperty": "Reponses"
+          }
+        },
+        "User": {
+          "type": "object",
+          "$ref": "#/definitions/User"
+        },
+        "interviewer": {
+          "x-precision": 10,
+          "type": "integer",
+          "x-foreignKey": {
+            "parentTable": "user",
+            "parentEntityType": "User",
+            "type": "User",
+            "principalKey": "id",
+            "name": "User",
+            "textProperty": "user_name",
+            "navigationProperty": "Reponses"
+          }
+        },
+        "json": {
+          "type": "string"
+        }
+      }
+    },
+    "User": {
+      "x-table": "dbo.user",
+      "resource": "Users",
+      "required": [],
+      "properties": {
+        "id": {
+          "x-key": true,
+          "x-identity": true,
+          "x-nullable": false,
+          "x-precision": 10,
+          "type": "integer",
+          "x-navigation": [
+            {
+              "inversePropertyName": "User",
+              "name": "Reponses",
+              "type": "Reponse"
+            }
+          ]
+        },
+        "user_name": {
+          "type": "string",
+          "length": 100
+        },
+        "Reponses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Reponse"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/Pensionnaires": {
+      "get": {
+        "operationId": "getPensionnaires",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$filter",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$count",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$format",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$select",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "value": {
+                  "items": {
+                    "$ref": "#/definitions/Pensionnaire"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createPensionnaire",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "Pensionnaire",
+            "schema": {
+              "$ref": "#/definitions/Pensionnaire"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/Pensionnaire"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/Questionnaires": {
+      "get": {
+        "operationId": "getQuestionnaires",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$filter",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$count",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$format",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$select",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "value": {
+                  "items": {
+                    "$ref": "#/definitions/Questionnaire"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createQuestionnaire",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "Questionnaire",
+            "schema": {
+              "$ref": "#/definitions/Questionnaire"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/Questionnaire"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/Referentiels": {
+      "get": {
+        "operationId": "getReferentiels",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$filter",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$count",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$format",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$select",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "value": {
+                  "items": {
+                    "$ref": "#/definitions/Referentiel"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createReferentiel",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "Referentiel",
+            "schema": {
+              "$ref": "#/definitions/Referentiel"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/Referentiel"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/Reponses": {
+      "get": {
+        "operationId": "getReponses",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$filter",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$count",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$format",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$select",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "value": {
+                  "items": {
+                    "$ref": "#/definitions/Reponse"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createReponse",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "Reponse",
+            "schema": {
+              "$ref": "#/definitions/Reponse"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/Reponse"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/Users": {
+      "get": {
+        "operationId": "getUsers",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$filter",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$count",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$format",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$select",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "value": {
+                  "items": {
+                    "$ref": "#/definitions/User"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createUser",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "User",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/Pensionnaires({id})": {
+      "delete": {
+        "operationId": "deletePensionnaire",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getPensionnaireByid",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Pensionnaire"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updatePensionnaire",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "Pensionnaire",
+            "schema": {
+              "$ref": "#/definitions/Pensionnaire"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/Questionnaires({id})": {
+      "delete": {
+        "operationId": "deleteQuestionnaire",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getQuestionnaireByid",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Questionnaire"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateQuestionnaire",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "Questionnaire",
+            "schema": {
+              "$ref": "#/definitions/Questionnaire"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/Referentiels({id})": {
+      "delete": {
+        "operationId": "deleteReferentiel",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getReferentielByid",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Referentiel"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateReferentiel",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "Referentiel",
+            "schema": {
+              "$ref": "#/definitions/Referentiel"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/Reponses({id})": {
+      "delete": {
+        "operationId": "deleteReponse",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getReponseByid",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Reponse"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateReponse",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "Reponse",
+            "schema": {
+              "$ref": "#/definitions/Reponse"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/Users({id})": {
+      "delete": {
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getUserByid",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateUser",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "User",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "basePath": "/odata/PensionnairesDB",
+  "host": "localhost:5000",
+  "schemes": [
+    "http"
+  ]
+}

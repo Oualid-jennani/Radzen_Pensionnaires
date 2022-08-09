@@ -1,0 +1,24 @@
+<rz-content #content1 container="main">
+  <div class="row">
+    <div class="col-md-12">
+      <rz-form #form0 (cancel)="form0Cancel($event)" (submit)="form0Submit($event)">
+        <rz-string-form-field property="nom" [required]="false" title="Nom" [maxLength]="50" requiredText="is required" type="string">
+        </rz-string-form-field>
+        <rz-string-form-field property="prenom" [required]="false" title="Prenom" [maxLength]="50" requiredText="is required" type="string">
+        </rz-string-form-field>
+        <rz-string-form-field property="matricule" [required]="false" title="Matricule" [maxLength]="50" requiredText="is required" type="string">
+        </rz-string-form-field>
+        <rz-string-form-field property="numero_identite" [required]="false" title="Numero Identite" [maxLength]="30" requiredText="is required" type="string">
+        </rz-string-form-field>
+        <rz-lookup-form-field [data]="getReferentielsResult" property="type_identite" [required]="false" textProperty="cat" title="Referentiel" valueProperty="id" placeholder="Choose Referentiel" requiredText="is required" multipleItemsSelectedText="{0} items selected" emptyFilterText="No results found" type="lookup">
+        </rz-lookup-form-field>
+        <rz-date-form-field property="date_naissance" [required]="false" title="Date Naissance" requiredText="is required" type="date">
+        </rz-date-form-field>
+        <rz-date-form-field property="date_entree" [required]="false" title="Date Entree" requiredText="is required" type="date">
+        </rz-date-form-field>
+        <rz-date-form-field property="date_sortie" [required]="false" title="Date Sortie" requiredText="is required" type="date">
+        </rz-date-form-field>
+      </rz-form>
+    </div>
+  </div>
+</rz-content>

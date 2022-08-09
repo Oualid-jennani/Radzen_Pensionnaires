@@ -1,0 +1,95 @@
+{
+  "components": [
+    {
+      "components": [
+        {
+          "name": "pageTitle",
+          "size": "H1",
+          "text": "Démmarer Questionnaire",
+          "type": "heading"
+        },
+        {
+          "columns": 3,
+          "data": "",
+          "events": {
+            "submit": [
+              {
+                "name": "pensionnaire",
+                "type": "set",
+                "value": "${getPensionnairesResult}"
+              },
+              {
+                "name": "questionnaire",
+                "type": "set",
+                "value": "${getQuestionnairesResult}"
+              },
+              {
+                "path": "add-reponse",
+                "type": "navigate"
+              }
+            ]
+          },
+          "fields": [
+            {
+              "data": "${getPensionnairesResult}",
+              "defaultValue": "",
+              "emptyFilterText": "No results found",
+              "multipleItemsSelectedText": "{0} items selected",
+              "placeholder": "Pensionnaire",
+              "requiredText": "is required",
+              "textProperty": "matricule",
+              "type": "lookup",
+              "valueProperty": "id"
+            },
+            {
+              "data": "${getQuestionnairesResult}",
+              "defaultValue": "",
+              "emptyFilterText": "No results found",
+              "multipleItemsSelectedText": "{0} items selected",
+              "placeholder": "questionnare",
+              "requiredText": "is required",
+              "textProperty": "libelle",
+              "type": "lookup",
+              "valueProperty": "id"
+            }
+          ],
+          "name": "form0",
+          "submitText": "Démmarer",
+          "type": "form"
+        }
+      ],
+      "container": "main",
+      "type": "content"
+    }
+  ],
+  "events": {
+    "load": [
+      {
+        "name": "PensionnairesDB.getPensionnaires",
+        "parameters": [],
+        "then": [
+          {
+            "name": "getPensionnairesResult",
+            "type": "set",
+            "value": "${result.value}"
+          }
+        ],
+        "type": "invoke"
+      },
+      {
+        "name": "PensionnairesDB.getQuestionnaires",
+        "parameters": [],
+        "then": [
+          {
+            "name": "getQuestionnairesResult",
+            "type": "set",
+            "value": "${result.value}"
+          }
+        ],
+        "type": "invoke"
+      }
+    ]
+  },
+  "layout": "Content",
+  "name": "Démmarer Questionnaire"
+}

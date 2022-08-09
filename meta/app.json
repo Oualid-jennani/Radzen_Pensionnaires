@@ -1,0 +1,47 @@
+{
+  "cssFiles": [],
+  "dataSources": [
+    "PensionnairesDB"
+  ],
+  "generator": "@radzen/angular-generator",
+  "https": false,
+  "ignore": [
+    "client\\angular.json",
+    "client\\package.json",
+    "client\\src\\app\\add-reponse\\add-reponse.component.ts",
+    "client\\node_modules\\"
+  ],
+  "javaScriptFiles": [],
+  "layouts": [
+    "Login",
+    "Main",
+    "Content"
+  ],
+  "logo": "",
+  "name": "Pensionnaires",
+  "namespaces": [],
+  "navigation": [
+    "Questionnaire",
+    "Pensionnaire",
+    "Démmarer Questionnaire",
+    "Add Reponse"
+  ],
+  "pages": [
+    "Questionnaire",
+    "Add Questionnaire",
+    "Edit Questionnaire",
+    "Pensionnaire",
+    "Add Pensionnaire",
+    "Edit Pensionnaire",
+    "Démmarer Questionnaire",
+    "Add Reponse"
+  ],
+  "port": 8000,
+  "serverLang": "cs",
+  "serverPort": 5000,
+  "serverProject": true,
+  "serverVersion": "6",
+  "startPage": null,
+  "theme": "default",
+  "title": "Pensionnaires"
+}

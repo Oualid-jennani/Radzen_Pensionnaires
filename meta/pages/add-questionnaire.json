@@ -1,0 +1,113 @@
+{
+  "components": [
+    {
+      "components": [
+        {
+          "components": [
+            {
+              "class": "col-md-12",
+              "components": [
+                {
+                  "data": "",
+                  "events": {
+                    "cancel": [
+                      {
+                        "type": "back"
+                      }
+                    ],
+                    "submit": [
+                      {
+                        "error": [
+                          {
+                            "detail": "Unable to create new Questionnaire!",
+                            "severity": "error",
+                            "summary": "Error",
+                            "type": "notify"
+                          }
+                        ],
+                        "name": "PensionnairesDB.createQuestionnaire",
+                        "parameters": [
+                          {
+                            "name": "Questionnaire",
+                            "value": "${event}"
+                          }
+                        ],
+                        "then": [
+                          {
+                            "type": "back"
+                          }
+                        ],
+                        "type": "invoke"
+                      }
+                    ]
+                  },
+                  "fields": [
+                    {
+                      "maxLength": 30,
+                      "property": "code",
+                      "required": false,
+                      "requiredText": "is required",
+                      "title": "Code",
+                      "type": "string"
+                    },
+                    {
+                      "maxLength": 50,
+                      "property": "libelle",
+                      "required": false,
+                      "requiredText": "is required",
+                      "title": "Libelle",
+                      "type": "string"
+                    },
+                    {
+                      "maxLength": 200,
+                      "property": "description",
+                      "required": false,
+                      "requiredText": "is required",
+                      "title": "Description",
+                      "type": "string"
+                    },
+                    {
+                      "property": "active",
+                      "required": false,
+                      "requiredText": "is required",
+                      "title": "Active",
+                      "type": "boolean"
+                    },
+                    {
+                      "property": "date_creation",
+                      "required": false,
+                      "requiredText": "is required",
+                      "title": "Date Creation",
+                      "type": "date"
+                    },
+                    {
+                      "property": "json",
+                      "required": false,
+                      "requiredText": "is required",
+                      "title": "Json",
+                      "type": "text"
+                    }
+                  ],
+                  "name": "form0",
+                  "style": {
+                    "height": "419px"
+                  },
+                  "type": "form"
+                }
+              ],
+              "type": "col"
+            }
+          ],
+          "type": "row"
+        }
+      ],
+      "container": "main",
+      "type": "content"
+    }
+  ],
+  "events": {
+    "load": []
+  },
+  "layout": "Main",
+  "name": "Add Questionnaire"
+}
